@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Biblioteca</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 960px; margin: 0 auto; padding: 1rem; color: #222; }
+    nav { display: flex; gap: 1rem; border-bottom: 2px solid #ddd; padding-bottom: .6rem; margin-bottom: 1rem; }
+    nav a { text-decoration: none; font-weight: 600; color: #1d4ed8; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { text-align: left; padding: .5rem; border-bottom: 1px solid #eee; }
+    .btn { display: inline-block; padding: .35rem .8rem; border: 1px solid #1d4ed8; background: #1d4ed8; color: #fff; border-radius: 6px; text-decoration: none; cursor: pointer; font-size: .9rem; }
+    .btn.sec { background: #fff; color: #1d4ed8; }
+    .btn.red { background: #b91c1c; border-color: #b91c1c; }
+    .msg { padding: .6rem; background: #dcfce7; border-radius: 6px; margin-bottom: 1rem; }
+    .atraso { color: #b91c1c; font-weight: 600; }
+    .topo { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    form p { margin: .6rem 0; }
+    form label { display: block; font-weight: 600; margin-bottom: .2rem; }
+    input, select { padding: .4rem; width: 100%; max-width: 420px; box-sizing: border-box; }
+    .errorlist { color: #b91c1c; padding-left: 1rem; }
+    .pag { margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="{% url 'livro_list' %}">Livros</a>
+    <a href="{% url 'leitor_list' %}">Leitores</a>
+    <a href="{% url 'emprestimo_list' %}">Empréstimos</a>
+  </nav>
+  {% for m in messages %}<div class="msg">{{ m }}</div>{% endfor %}
+  {% block content %}{% endblock %}
+</body>
+</html>

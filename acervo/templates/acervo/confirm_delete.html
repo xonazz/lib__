@@ -1,0 +1,10 @@
+{% extends "acervo/base.html" %}
+{% block content %}
+<h1>Apagar registro</h1>
+<p>Tem certeza que deseja apagar <strong>{{ object }}</strong>?</p>
+<form method="post">
+  {% csrf_token %}
+  <button class="btn red" type="submit">Sim, apagar</button>
+  <a class="btn sec" href="javascript:history.back()">Cancelar</a>
+</form>
+{% endblock %}

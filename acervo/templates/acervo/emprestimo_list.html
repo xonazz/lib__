@@ -1,0 +1,36 @@
+{% extends "acervo/base.html" %}
+{% block content %}
+<div class="topo">
+  <h1>Empréstimos</h1>
+  <div>
+    {% if request.GET.abertos %}<a class="btn sec" href="?">Ver todos</a>{% else %}<a class="btn sec" href="?abertos=1">Só em aberto</a>{% endif %}
+    <a class="btn" href="{% url 'emprestimo_create' %}">+ Novo empréstimo</a>
+  </div>
+</div>
+<table>
+  <tr><th>Livro</th><th>Leitor</th><th>Emprestado</th><th>Previsto</th><th>Situação</th><th></th></tr>
+  {% for e in object_list %}
+  <tr>
+    <td>{{ e.livro.titulo }}</td>
+    <td>{{ e.leitor.nome }}</td>
+    <td>{{ e.data_emprestimo|date:"d/m/Y" }}</td>
+    <td>{{ e.data_prevista|date:"d/m/Y" }}</td>
+    <td>
+      {% if e.data_devolucao %}Devolvido em {{ e.data_devolucao|date:"d/m/Y" }}
+      {% elif e.atrasado %}<span class="atraso">Atrasado</span>
+      {% else %}Em aberto{% endif %}
+    </td>
+    <td>
+      {% if not e.data_devolucao %}
+      <form method="post" action="{% url 'emprestimo_devolver' e.pk %}" style="display:inline">
+        {% csrf_token %}<button class="btn" type="submit">Devolver</button>
+      </form>
+      {% endif %}
+      <a class="btn sec" href="{% url 'emprestimo_update' e.pk %}">Editar</a>
+      <a class="btn red" href="{% url 'emprestimo_delete' e.pk %}">Apagar</a>
+    </td>
+  </tr>
+  {% empty %}<tr><td colspan="6">Nenhum empréstimo registrado.</td></tr>{% endfor %}
+</table>
+{% include "acervo/pagination.html" %}
+{% endblock %}
